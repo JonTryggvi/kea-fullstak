@@ -1,0 +1,14 @@
+{
+  "name": "exersice1",
+  "version": "1.0.0",
+  "description": "Fun Fun Fun",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jón Tryggvi Unnarsson",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.0.2"
+  }
+}
