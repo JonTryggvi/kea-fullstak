@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
   res.send(sTopHtml + sMainHtml + sBottomHtml)
 })
 
-// **************************************************
+
 app.get('/contact-us', (req, res) => {
   var sTopHtml = gFs.readFileSync(__dirname + '/components/top.html', 'utf8')
   var sMainHtml = gFs.readFileSync(__dirname + '/html/contact-us.html', 'utf8')
@@ -60,6 +60,8 @@ app.get('/user-page/:id', (req, res) => {
   var sMainHtml = gFs.readFileSync(__dirname + '/html/user-page.html', 'utf8')
   var sBottomHtml = gFs.readFileSync(__dirname + '/components/bottom.html', 'utf8')
  
+  sTopHtml = sTopHtml.replace('{{title}}', 'PROJECT : : Users')
+  sTopHtml = sTopHtml.replace('{{active-users}}', ' active').replace(/{{active-.*}}/g, '')
   sBottomHtml = sBottomHtml.replace('{{js-script}}', '')
   sMainHtml = sMainHtml.replace('{{userId}}', userId)
   res.send(sTopHtml + sMainHtml + sBottomHtml)
