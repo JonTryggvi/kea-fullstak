@@ -4,7 +4,7 @@ var chalk = require('chalk')
 app.use(express.static(__dirname + '/public'))
 global.gFs = require('fs')
 
-// **************************************************
+// ****************************************************************************************************
 global.gLog = (sStatus, sMessage) => {
   switch (sStatus) {
     case 'ok':
@@ -22,31 +22,31 @@ global.gLog = (sStatus, sMessage) => {
   }
 }
 
-// **************************************************
-var user = require(__dirname + '/controllers/user.js')
+// ****************************************************************************************************
+var user = require( __dirname + '/controllers/user.js' )
 
-// **************************************************
+// ****************************************************************************************************
+var sTopHtml = gFs.readFileSync(__dirname + '/components/top.html', 'utf8')
+var sMainHtml = gFs.readFileSync(__dirname + '/html/index.html', 'utf8')
+var sBottomHtml = gFs.readFileSync(__dirname + '/components/bottom.html', 'utf8') 
+
+// ****************************************************************************************************
 app.get('/', (req, res) => {
-  var sTopHtml = gFs.readFileSync(__dirname + '/components/top.html', 'utf8')
-  var sMainHtml = gFs.readFileSync(__dirname + '/html/index.html', 'utf8')
-  var sBottomHtml = gFs.readFileSync(__dirname + '/components/bottom.html', 'utf8')
-  var sJs = gFs.readFileSync(__dirname + '/public/js/home.js', 'utf8')
+  sMainHtml = gFs.readFileSync( __dirname + '/html/index.html', 'utf8' )
 
   // replace placeholders
-  sTopHtml = sTopHtml.replace('{{title}}', 'PROJECT : : Welcome')
+  sTopHtml = sTopHtml.replace( '{{title}}', 'PROJECT : : Welcome' )
 
-  sTopHtml = sTopHtml.replace('{{active-home}}', ' active').replace(/{{active-.*}}/g, '')
-  sBottomHtml = sBottomHtml.replace('{{js-script}}', '<script src="/js/home.js"></script>')
+  sTopHtml = sTopHtml.replace( '{{active-home}}', ' active').replace(/{{active-.*}}/g, '' )
+  sBottomHtml = sBottomHtml.replace( '{{js-script}}', '<script src="/js/home.js"></script>' )
 
   res.send(sTopHtml + sMainHtml + sBottomHtml)
 })
 
 
 app.get('/contact-us', (req, res) => {
-  var sTopHtml = gFs.readFileSync(__dirname + '/components/top.html', 'utf8')
-  var sMainHtml = gFs.readFileSync(__dirname + '/html/contact-us.html', 'utf8')
-  var sBottomHtml = gFs.readFileSync(__dirname + '/components/bottom.html', 'utf8')
-  var sJs = gFs.readFileSync(__dirname+'/public/js/contact-us.js', 'utf8')
+  sMainHtml = gFs.readFileSync(__dirname + '/html/contact-us.html', 'utf8')
+ 
   // replace placeholders
   sTopHtml = sTopHtml.replace('{{title}}', 'PROJECT : : Contact Us')
   sTopHtml = sTopHtml.replace('{{active-contact-us}}', ' active').replace(/{{active-.*}}/g, '')
@@ -55,11 +55,7 @@ app.get('/contact-us', (req, res) => {
 })
 
 app.get('/user-page/:id', (req, res) => {
-  var userId = req.params.id;
-  var sTopHtml = gFs.readFileSync(__dirname + '/components/top.html', 'utf8')
-  var sMainHtml = gFs.readFileSync(__dirname + '/html/user-page.html', 'utf8')
-  var sBottomHtml = gFs.readFileSync(__dirname + '/components/bottom.html', 'utf8')
- 
+  var userId = req.params.id; 
   sTopHtml = sTopHtml.replace('{{title}}', 'PROJECT : : Users')
   sTopHtml = sTopHtml.replace('{{active-users}}', ' active').replace(/{{active-.*}}/g, '')
   sBottomHtml = sBottomHtml.replace('{{js-script}}', '')
