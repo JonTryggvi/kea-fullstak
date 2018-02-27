@@ -4,6 +4,11 @@ var chalk = require('chalk')
 app.use(express.static(__dirname + '/public'))
 global.gFs = require('fs')
 
+
+// NPM nightmare anybody can publish npm packages
+
+var formidable = require('express-formidable')
+app.use(formidable());
 // ****************************************************************************************************
 global.gLog = (sStatus, sMessage) => {
   switch (sStatus) {
@@ -65,6 +70,17 @@ app.get('/user-page/:id', (req, res) => {
 })
 
 
+
+
+app.get('/test-post', (req, res) => {
+ var sName =  req.fields.txtName; // contains non-file fields 
+  req.files; // contains files 
+  console.log(sName);
+  
+  return res.send(sName)  // the send should be the last in a route unless for some speciall reasons just use return to be safe
+ 
+  
+});
 
 //  ****************************************************************************************************
 
