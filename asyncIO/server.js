@@ -38,23 +38,21 @@ app.get('/', (req, res) => {
       iTask --
       sLetter = sData
       mainIndexHtml = mainIndexHtml.replace('{{a}}', sLetter)
-      sendData(mainIndexHtml)
-      
+      sendData(mainIndexHtml) 
     })
   gFs.readFile(__dirname + '/data-b.txt', 'utf8', (err, sData) => {
       iTask--
       sLetter = sData
       mainIndexHtml = mainIndexHtml.replace('{{b}}', sLetter)
       //  res.send(sMainHtml)
-    sendData(mainIndexHtml)
+      sendData(mainIndexHtml)
       
-     
     })
   gFs.readFile(__dirname + '/data-c.txt', 'utf8', (err, sData) => {
       iTask--
       sLetter = sData
       mainIndexHtml = mainIndexHtml.replace('{{c}}', sLetter)
-    sendData(mainIndexHtml)
+      sendData(mainIndexHtml)
     })
    
   function sendData(mainIndexHtml) {
