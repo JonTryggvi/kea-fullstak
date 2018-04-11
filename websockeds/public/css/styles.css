@@ -1,0 +1,293 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,400,700");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: none;
+  -webkit-border-image: none;
+       -o-border-image: none;
+          border-image: none; }
+
+*:active, *:focus {
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  outline: none; }
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  min-height: 100vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-background-size: 70% 70%;
+          background-size: 70%;
+  background-color: #264348;
+  background-position: 150% 100%;
+  background-repeat: no-repeat;
+  background-blend-mode: lighten; }
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 2rem; }
+
+p, span, input, .frmMessenger .txtMessage {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100; }
+
+ul {
+  list-style: none; }
+
+button {
+  cursor: pointer;
+  border: none;
+  width: 100px;
+  height: 44px;
+  background-color: #16A085;
+  color: #F2F1EF;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  border-radius: 22px;
+  text-transform: uppercase;
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  button:hover {
+    background-color: #317589; }
+
+input {
+  height: 44px;
+  border-top: 1px solid #16A085;
+  background-image: none;
+  background-color: #F2F1EF;
+  width: 250px;
+  text-indent: 20px;
+  font-size: 1rem; }
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 90vh;
+  height: 90vh;
+  background-color: rgba(242, 241, 239, 0.7); }
+  .container__left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    background: #264348;
+    width: 70%;
+    overflow: hidden;
+    overflow-y: scroll; }
+  .container__right {
+    width: 30%;
+    min-height: 90vh; }
+    .container__right h3 {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      font-family: "Roboto", sans-serif;
+      margin: 10px 0 30px;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center; }
+    .container__right .activeUsers {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: column;
+              flex-flow: column;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
+      .container__right .activeUsers li {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        width: 80%;
+        font-family: "Roboto", sans-serif;
+        text-align: left; }
+      .container__right .activeUsers .activeUser {
+        height: 26px;
+        position: relative; }
+        .container__right .activeUsers .activeUser::before {
+          position: absolute;
+          content: '';
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          left: -18px;
+          -webkit-transform: translateY(50%);
+              -ms-transform: translateY(50%);
+                  transform: translateY(50%);
+          background-color: #16A085; }
+
+.header {
+  width: 100%;
+  background-color: #16A085;
+  position: relative;
+  margin: 0;
+  overflow: hidden; }
+  .header h1 {
+    width: 100%;
+    text-align: center;
+    color: #F2F1EF;
+    text-transform: uppercase;
+    letter-spacing: 2px; }
+
+.sMessageDisplay {
+  width: 100%;
+  background-color: #F2F1EF;
+  height: 70%;
+  -webkit-background-size: contain;
+          background-size: contain;
+  background-position: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.frmMessenger {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  width: 100%; }
+  .frmMessenger .txtMessage {
+    height: 44px;
+    border-top: 1px solid #16A085;
+    background-image: none;
+    background-color: #F2F1EF;
+    width: calc(100% - 100px);
+    text-indent: 20px;
+    font-size: 1rem; }
+  .frmMessenger .btnSend {
+    border-radius: 0; }
+
+.sMessageDisplay {
+  max-height: 800px;
+  display: block;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: 20px;
+  overflow: hidden;
+  overflow-y: scroll; }
+  .sMessageDisplay .message {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 5px 0 5px;
+    height: 30px; }
+    .sMessageDisplay .message p, .sMessageDisplay .message span, .sMessageDisplay .message input, .sMessageDisplay .message .frmMessenger .txtMessage, .frmMessenger .sMessageDisplay .message .txtMessage {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center; }
+    .sMessageDisplay .message span {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      height: 26px;
+      min-width: 50px; }
+  .sMessageDisplay .localMsg {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start; }
+    .sMessageDisplay .localMsg span {
+      -webkit-box-pack: start;
+          -ms-flex-pack: start;
+              justify-content: flex-start;
+      background-color: #16A085;
+      padding: 0 10px;
+      margin-right: 10px;
+      color: #F2F1EF;
+      border-radius: 13px 0 0 13px; }
+  .sMessageDisplay .externalMsg {
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end; }
+    .sMessageDisplay .externalMsg span {
+      -webkit-box-pack: end;
+          -ms-flex-pack: end;
+              justify-content: flex-end;
+      background-color: #317589;
+      padding: 0 10px;
+      margin-left: 10px;
+      border-radius: 0 13px 13px 0;
+      color: #F2F1EF; }
+
+.status {
+  width: 90vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px 0 10px; }
+  .status span {
+    color: #F2F1EF; }
+  .status .btnLogout {
+    text-transform: initial;
+    background-color: transparent;
+    border: none;
+    color: #F2F1EF;
+    background-color: #16A085;
+    height: 20px;
+    border-radius: 10px;
+    -webkit-transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1); }
+    .status .btnLogout:hover {
+      background-color: #C3272B;
+      color: #F2F1EF; }
+
+/* .messages p {
+      display: inline-block;
+    } */
+.frmLogin {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 50vh;
+  height: 25vh; }
+
+/*# sourceMappingURL=styles.css.map */
