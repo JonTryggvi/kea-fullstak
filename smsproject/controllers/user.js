@@ -6,20 +6,26 @@ function shuffle(o) {
   return o;
 }
 
+var algorithm = 'aes-256-ctr'
+var  password = 'd6F3Efeq'
+var iv = '60iP0h6vJoEa'
 function encrypt(text) {
-  
-  var cipher = crypto.createCipher('aes-256-ctr', password)
+  var cipher = crypto.createCipher(algorithm, password, iv)
   var crypted = cipher.update(text, 'utf8', 'hex')
   crypted += cipher.final('hex');
   return crypted;
 }
 
 function decrypt(text) {
-  var decipher = crypto.createDecipher('aes-256-ctr', password)
+  var decipher = crypto.createDecipher(algorithm, password, iv)
   var dec = decipher.update(text, 'hex', 'utf8')
   dec += decipher.final('utf8');
   return dec;
 }
+
+// var hw = encrypt("hello world")
+// // outputs hello world
+// console.log(decrypt(hw));
 
 var jUser = {}
 jUser.saveUser = (req, res) => {
@@ -53,8 +59,10 @@ jUser.validateUser = (req, res) => {
     if (err) {
       return res.send('unsuccessful '+ err)
     } 
+
+  
     
-    result.code = crypto.createHash('md5').update(clientCode).digest("hex")
+    result.code = encrypt(clientCode, '123')// crypto.createHash('md5').update(clientCode).digest("hex")
     
     
     return res.send(result) 
@@ -65,13 +73,13 @@ jUser.validateUser = (req, res) => {
 
 jUser.test = (req, res) => {
   var testString = '123'
-  var enCripted = encrypt(testString)
+  var enCripted = encrypt(testString, '123')
   console.log(enCripted);
   
-  var deCrypted = decrypt(text)
+  var deCrypted = decrypt(enCripted, '123')
   console.log(deCrypted);
   
-  
+  return res.send('<h1>aces</h1>')
 }
 
 

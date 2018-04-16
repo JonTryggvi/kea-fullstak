@@ -37,7 +37,7 @@ $('#btnSignUp').click(function () {
       var status = jData.status;
       var responseCode = jData.code;
       var sResponseMessage = jData.message;
-      console.log(jData);
+      // console.log(jData);
       
       if (status != "ok") {
         console.log('something whent wrong with the sms servise ' + sResponseMessage);
@@ -58,11 +58,12 @@ $('#btnVerifyCode').click(function () {
       console.log('the code did not match our records');
       // return  
     }
-    var userCode = jData.code
-    setCookie('cValidCode', userCode, 1);
+    var userCode = jData.code;
+    setCookie('cValidCode', userCode, 1/24);
     $('#verifyCode').removeClass('openVerify');
     $('#frmVerify').trigger("reset");
-    console.log(jData);
+    window.location.replace('/valid-user');
+    // console.log(jData);
   })
 })
 
