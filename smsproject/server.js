@@ -4,6 +4,7 @@ var mysql = require('mysql')
 var gFs = require('fs')
 var bodyParser = require('body-parser')
 global.crypto = require('crypto');
+const url = require('url'); 
 // global.openUrl = require("openurl")
 app.use(express.static(__dirname + '/public'))
 // create application/json parser
@@ -36,7 +37,9 @@ var user = require(__dirname + '/controllers/user.js')
 // ****************************************************************************************************
 
 app.get('/sign-up', signup)
-app.get('/valid-user', validUser)
+app.get('/valid-user', urlencodedParser, function (req, res) {
+  validUser.valid(req, res);
+})
 
 // ******************************************API*************************************
 app.post('/save-user', urlencodedParser, (req, res) => {
@@ -46,9 +49,26 @@ app.post('/validate-code', urlencodedParser, (req, res) => {
   user.validateUser(req, res)
 })
 
+app.post('/get-cookie', urlencodedParser, function (req, res) {
+  validUser.getCookie(req, res, function (err, bRes) {
+    if (err) {
+      console.log(err)
+      res.redirect(url.format({
+        pathname: "/sign-up"
+      }));
+    }
+    console.log(bRes);
+    res.redirect(url.format({
+      pathname: "/valid-user"
+    }));
+  })
+})
+
 app.get('/test', (req, res) => {
   user.test()
 })
+
+
 
 // ****************************************************************************************************
 
