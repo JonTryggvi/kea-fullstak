@@ -12,7 +12,7 @@ $('form').on('keypress', function (e) {
   if (keyCode === 13) {
     e.preventDefault();
     // $('form button').click();
-    return false;
+      return false;
   }
 });
 
@@ -53,7 +53,8 @@ function whatBrowser() {
     browserName = 'Firefox';
     fullVersion = nAgt.substring(verOffset + 8);
     // return browserName;
-  } else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) < (verOffset = nAgt.lastIndexOf('/'))) {
+  } else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) <
+    (verOffset = nAgt.lastIndexOf('/'))) {
     browserName = nAgt.substring(nameOffset, verOffset);
     fullVersion = nAgt.substring(verOffset + 1);
     if (browserName.toLowerCase() === browserName.toUpperCase()) {
@@ -76,59 +77,18 @@ function whatBrowser() {
   // console.log(browserName);
 
   return browserName;
+
 }
+
 
 // console.log(window.location.hostname);
 var sHostName = window.location.hostname;
 var serverLoactation;
-if (sHostName == 'localhost' || sHostName == '10.0.0.209') {
+if (sHostName == 'localhost' || sHostName == '10.0.0.209' ) {
   serverLoactation = "10.0.0.209:3000";
 } else {
   serverLoactation = '18.216.169.68:3000';
 }
 
-var socket = io(serverLoactation);
-;
-// console.log(location);
-function isLocalStorageNameSupported(key, value) {
-  var testKey = key,
-      storage = window.localStorage;
-  try {
-    storage.setItem(testKey, value);
-    // storage.removeItem(testKey);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-// console.log(isLocalStorageNameSupported());
-$('#btnSubmit').click(function () {
-  var oFrmLogin = $('#frmLogin').serialize();
-  var aData;
-  // console.log(oFrmLogin);
-  // console.log('x');
-  $(this).text('loading');
-  $.post('logger', oFrmLogin, function (data) {
-    console.log(data);
-    if (typeof data[0][1] == 'string') {
-      var sData = data[0][1];
-      aData = JSON.parse(sData);
-    } else {
-      aData = [data[0][1]];
-      // console.log(aData);
-    }
 
-    userId = aData[0].id;
-
-    // window.localStorage.userId = userId;
-    isLocalStorageNameSupported('userId', userId);
-    // chat.on('connect', function () {
-    //   chat.broadcast.emit(aData[0].name);
-    // });
-
-    // console.log(aData[0].id);
-    $('#frmLogin').trigger("reset");
-    location.replace(location.origin + '/chat');
-  });
-});
-//# sourceMappingURL=login-scripts.js.map
+var socket = io('localhost:3000');

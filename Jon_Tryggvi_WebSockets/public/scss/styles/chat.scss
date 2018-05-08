@@ -1,0 +1,188 @@
+.container {
+  display: flex;
+  width: 90vh;
+  height: 90vh;
+  background-color: rgba($light, 0.7);
+
+  &__left {
+    display: flex;
+    flex-flow: column;
+    // // background-color: silver;
+    background: $dark;
+    width:70%;
+    overflow: hidden;
+    overflow-y: scroll;
+    // justify-content: space-between
+  }
+  &__right {
+    // background-color: slategrey;
+    width: 30%;
+    min-height: 90vh;
+    h3 {
+      display: flex;
+      font-family: $robo;
+      margin: 10px 0 30px;
+      justify-content: center;
+    }
+    .activeUsers {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+     
+      li {
+        display: flex;
+        justify-content: flex-start;
+        width: 80%;
+        font-family: $robo;
+        text-align: left;
+      }
+     
+      .activeUser {
+        height: 26px;
+        position: relative;
+        &::before {
+          position: absolute;
+          content: '';
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          left: -18px;
+          transform: translateY(50%);
+          background-color: $green;
+        }
+      }
+    }
+  }
+}
+
+.header {
+  // height: 100px;
+  width:100%;
+  background-color: $green;
+  position: relative;
+  margin:0;
+  overflow: hidden;
+  h1 {
+    width: 100%;
+    text-align: center;
+    color: $light;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+}
+
+.sMessageDisplay {
+    width: 100%;
+    background-color: $light;
+    height: 70%;
+    background-size: contain;
+    background-position: center;
+    flex-grow: 1;
+  }
+
+  .frmMessenger {
+    display: flex;
+    align-self: flex-end;
+    width: 100%;
+    .txtMessage {
+      height: 44px;
+      border-top: 1px solid $green;
+      background-image: none;
+      background-color: $light;
+      width: calc(100% - 100px);
+      @extend p;
+      text-indent: 20px;
+      font-size: 1rem;
+    }
+    .btnSend {
+      border-radius: 0;
+    }
+  }
+
+  .sMessageDisplay {
+    max-height: 800px;
+    display: block;
+    // flex-flow: column;
+    justify-content: flex-start;
+    padding: 20px;
+    overflow: hidden;
+    overflow-y: scroll;
+   
+     .message {
+      display: flex;
+      // max-width: 60%;
+      padding: 5px 0 5px;
+      height: 30px;
+      // align-items: center;
+      // justify-content: space-around;
+      p {
+        display: flex;
+        align-items: center;
+      }
+      span {
+        display: flex;
+        
+        align-items: center;
+        height: 26px;
+        min-width: 50px;
+        
+      }
+    }
+    .localMsg {
+      justify-content: flex-start;
+     
+      span {
+        justify-content: flex-start;
+        background-color: $green;
+        padding: 0 10px;
+        margin-right: 10px;
+        color: $light;
+        border-radius:  13px 0 0 13px;
+      }
+    }
+    .externalMsg {
+      justify-content: flex-end;
+      span {
+        justify-content: flex-end;
+        background-color: $blue;
+        padding: 0 10px;
+        margin-left: 10px;
+        border-radius: 0 13px 13px 0;
+        color: $light;
+      }
+    }
+  }
+
+   .status {
+    width: 90vh;
+    display: flex;
+    justify-content: space-between;
+    // padding: 0 10px;
+    margin: 10px 0 10px; 
+    span {
+      color: $light;
+    }
+    .btnLogout {
+      text-transform: initial;
+      background-color: transparent;
+      border: none;
+      color: $light;
+      background-color: $green;
+      height: 20px;
+      border-radius: 10px;
+      transition: all .4s cubic-bezier(0.645, 0.045, 0.355, 1);
+      &:hover {
+        background-color: $red;
+        color: $light;
+      }
+    }
+  }
+
+  // .message:nth-child(even) {
+  //   background-color: rgba(0, 0, 0, 0.2)
+  // }
+
+  /* .messages p {
+      display: inline-block;
+    } */
