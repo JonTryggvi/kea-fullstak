@@ -91,4 +91,4 @@ if (sHostName == 'localhost' || sHostName == '10.0.0.209' ) {
 }
 
 
-var socket = io("10.111.176.30:3000");
+var socket = io(serverLoactation);
