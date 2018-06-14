@@ -19,7 +19,7 @@
 
 let jData = { fullName: { firstName: 'A', lastname: 'B' } }
 
-let jData = { name: 'A' }
+let jDafta = { name: 'A' }
 
 
 let sUserName = jData.fullName.firstName

@@ -23,7 +23,8 @@ const mongo = require('mongodb').MongoClient;
 
 
 /***** connect to mongodb */
-
+const mongo = require('mongodb').MongoClient;
+// global.db = null
 // mongo.connect(sDatabasePath, (err, client) => {   
 //   if (err) {
 //     console.log(chalk.white.bgRed.bold('ERROR 003 -> Cannot connect to the database ' + sDataBaseName))
