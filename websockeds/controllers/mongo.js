@@ -10,7 +10,7 @@ var jMongo = {}
 //   var jUser = postData
 //   console.log(jUser);
   
-//   db.collection('users').insertOne(jUser, (err, jResult) => {
+//   db.colllection('users').insertOne(jUser, (err, jResult) => {
 //     if (err) {
 //       var jError = { "status": "error", "message": "ERROR -> student JSON -> 001" }
 //       // return res.send('error')
