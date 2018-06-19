@@ -1,0 +1,65 @@
+.frmSignup {
+  margin-top: 50px;
+}
+
+.setFlex {
+  display: flex;
+  justify-content: center;
+  .dropify-wrapper  {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    padding: 0px;
+    margin: 0 auto;
+    .dropify-preview {
+      padding: 0;
+    }
+    .dropify-clear {
+      left: 50%;
+      transform: translateX(-50%);
+      top: 80%;
+      height: 25px; 
+    }
+    .dropify-message {
+      top: 25%;
+    }
+    .dropify-preview {
+      width: 200px;
+      .dropify-infos {
+      
+        box-sizing: border-box;
+      }
+      .dropify-render {
+        width: 200px;
+        height: 100%;
+        border-radius: 50%;
+        margin: 0 auto;
+        img {
+          width: 100%;
+          
+          padding: 0px;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+}
+.firstRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  .switch {
+    display: flex;
+    flex-flow: column;
+    height: 60px;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+.btnSbmSignup {
+  margin-top: 20px;
+}

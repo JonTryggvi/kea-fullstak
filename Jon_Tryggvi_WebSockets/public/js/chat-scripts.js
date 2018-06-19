@@ -87,7 +87,7 @@ if (sHostName == 'localhost' || sHostName == '10.0.0.209') {
   serverLoactation = '18.216.169.68:3000';
 }
 
-var socket = io(serverLoactation);
+var socket = io('localhost:3000');
 ;socket.on('activeUsers', function (jData) {
   // console.log(jData);
   var aActiveUsers = jData.activeUsers;

@@ -18,7 +18,13 @@ var imagemin    = require('gulp-imagemin');
 var URL = 'http://localhost:3333';
 
 // Check for --production flag
-var isProduction = !!(argv.production);
+var isProduction;
+if (process.argv[2] == 'package') {
+  isProduction = true;
+} else {
+  isProduction = false;
+}
+console.log(process.argv[2]);
 
 // Browsers to target when prefixing CSS.
 var COMPATIBILITY = [

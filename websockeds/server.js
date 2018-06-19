@@ -70,10 +70,10 @@ global.gLog = (sStatus, sMessage) => {
 }
 
 // ****************************************************************************************************
-var sTopHtmlRam = gFs.readFileSync(__dirname + '/components/top.html', 'utf8')
-var sMainHtmlRam = gFs.readFileSync(__dirname + '/html/chat.html', 'utf8')
-var sBottomHtmlRam = gFs.readFileSync(__dirname + '/components/bottom.html', 'utf8')
-var sLoginHtmlRam = gFs.readFileSync(__dirname + '/html/login.html', 'utf8')
+const sTopHtmlRam = gFs.readFileSync(__dirname + '/components/top.html', 'utf8')
+const sMainHtmlRam = gFs.readFileSync(__dirname + '/html/chat.html', 'utf8')
+const sBottomHtmlRam = gFs.readFileSync(__dirname + '/components/bottom.html', 'utf8')
+const sLoginHtmlRam = gFs.readFileSync(__dirname + '/html/login.html', 'utf8')
 
 // the database
 var sDataFile = __dirname + '/data.txt'
@@ -94,10 +94,10 @@ if (sData.length < 1) {
 
 app.get('/chat', function (req, res) {
   
-  var sTopHtml = sTopHtmlRam.replace('{{title}}', 'Chat with : : WebSockets')
+  const sTopHtml = sTopHtmlRam.replace('{{title}}', 'Chat with : : WebSockets')
   sTopHtml = sTopHtml.replace('{{jt-styles}}', '<link rel="stylesheet" href="/css/styles.css">')
-  var sMainHtml = sMainHtmlRam
-  var sBottomHtml = sBottomHtmlRam.replace('{{js-script}}', '<script src="/js/chat-scripts.js"></script>')
+  const sMainHtml = sMainHtmlRam
+  const sBottomHtml = sBottomHtmlRam.replace('{{js-script}}', '<script src="/js/chat-scripts.js"></script>')
   res.send(sTopHtml + sMainHtml + sBottomHtml);
 
 
@@ -105,10 +105,10 @@ app.get('/chat', function (req, res) {
 
 app.get('/', function (req, res) {
   
-  var sTopHtml = sTopHtmlRam.replace('{{title}}', 'Login')
+  const sTopHtml = sTopHtmlRam.replace('{{title}}', 'Login')
   sTopHtml = sTopHtml.replace('{{jt-styles}}', '<link rel="stylesheet" href="/css/styles.css">')
-  var sLoginHtml = sLoginHtmlRam
-  var sBottomHtml = sBottomHtmlRam.replace('{{js-script}}', '<script src="/js/login-scripts.js"></script>')
+  const sLoginHtml = sLoginHtmlRam
+  const sBottomHtml = sBottomHtmlRam.replace('{{js-script}}', '<script src="/js/login-scripts.js"></script>')
   res.send(sTopHtml + sLoginHtml + sBottomHtml);
 })
 

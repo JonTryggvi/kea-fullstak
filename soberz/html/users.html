@@ -1,0 +1,19 @@
+<section class="container row">
+  <h3>Sober users</h3>
+  {{table}}
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h4>Sett {{modalUserName}} as Admin?</h4>
+        <div id="setUserRole" class="switch">
+          then flick the switch
+          <label>
+            <input data-userid="{{roleUserId}}" id="theRoleSwitch" type="checkbox" name="user_role">
+            <span class="lever"></span>
+          </label>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+  </div>
+</section>

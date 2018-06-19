@@ -1,0 +1,39 @@
+.card {
+  margin-top: 40px;
+  .messages {
+  min-height: 70vh;
+}
+}
+
+
+.log {
+  color: gray;
+  font-size: 70%;
+  margin: 5px;
+  text-align: center;
+}
+
+/* Messages */
+
+.chatArea {
+  height: 100%;
+  padding-bottom: 60px;
+}
+
+.card .messages {
+  height: 100%;
+  margin: 0;
+  overflow-y: scroll;
+  padding: 30px 20px 10px 20px;
+}
+
+.message.typing .messageBody {
+  color: gray;
+}
+
+.username {
+  font-weight: 700;
+  overflow: hidden;
+  padding-right: 15px;
+  text-align: right;
+}

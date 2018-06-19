@@ -1,0 +1,82 @@
+<section class="container">
+    <h3>User profile</h3>
+    <p></p>click on items to edit them</p>
+  <div class="row card userHeader">
+    <h4 id="userName" class="col s7 offset-s1"></h4>
+
+    <div id="userImg" class="userImg setFlex col s3 offset-s2">
+      <input id="imgFile" type="file" class="dropify" name="imgFile" data-height="200" data-default-file=""
+      />
+    </div>
+  </div>
+
+  <div class="row card">
+    <div class="input-field profile-input col s5 offset-s1">
+      <a class="btnEdit btn-floating btn-small waves-effect waves-light red">
+        <i class="material-icons">mode_edit</i>
+      </a>
+      <a data-btninput="cancelinput" class="hidden btnCancel btn-floating btn-small waves-effect waves-light red">
+        <i id="tese" data-btninput="cancelinput" class="btnCancel material-icons">clear</i>
+      </a>
+      <input id="firstname" data-findclick="activateInput" name="firstname" disabled type="text" class="validate inpClick">
+      <label for="userName"></label>
+    </div>
+  
+    <div class="input-field profile-input col s5 ">
+      
+      <a class="btnEdit btn-floating btn-small waves-effect waves-light red">
+        <i class="material-icons">mode_edit</i>
+      </a>
+      <a data-btninput="cancelinput" class="hidden btnCancel btn-floating btn-small waves-effect waves-light red">
+        <i id="tese" data-btninput="cancelinput" class="btnCancel material-icons">clear</i>
+      </a>
+      <input id="lastname" data-findclick="activateInput" name="lastname" disabled type="text" class="validate inpClick">
+      <label for="lastname"></label>
+    </div>
+    <div class="input-field profile-input col s5 offset-s1">
+      <i class="material-icons prefix">email</i>
+      <a class="btnEdit btn-floating btn-small waves-effect waves-light red">
+        <i class="material-icons">mode_edit</i>
+      </a>
+      <a data-btninput="cancelinput" class="hidden btnCancel btn-floating btn-small waves-effect waves-light red">
+        <i id="tese" data-btninput="cancelinput" class="btnCancel material-icons">clear</i>
+      </a>
+      <input id="email" data-findclick="activateInput" name="email" disabled type="text" class="validate inpClick">
+      <label for="email"></label>
+    </div>
+    
+    <div class="input-field profile-input col s5">
+      <i class="small material-icons prefix">call</i>
+      <a class="btnEdit btn-floating btn-small waves-effect waves-light red">
+        <i class=" material-icons">mode_edit</i>
+      </a>
+      <a data-btninput="cancelinput" class="hidden btnCancel btn-floating btn-small waves-effect waves-light red">
+        <i id="tese" data-btninput="cancelinput" class="btnCancel material-icons">clear</i>
+      </a>
+      <input id="mobile" data-findclick="activateInput" name="mobile" disabled type="text" class="validate inpClick">
+      <label for="mobile"></label>
+    </div>
+
+    <div class="input-field profile-input col s10 offset-s1">
+      <i class="material-icons prefix tiny">mode_edit</i>
+      <a class="btnEdit btn-floating btn-small waves-effect waves-light red">
+        <i class="material-icons">mode_edit</i>
+      </a>
+      <a data-btninput="cancelinput" class="hidden btnCancel btn-floating btn-small waves-effect waves-light red">
+        <i id="tese" data-btninput="cancelinput" class="btnCancel material-icons">clear</i>
+      </a>
+      <!-- <input id="mobile" data-findclick="activateInput" name="mobile" disabled type="text" class="validate inpClick"> -->
+      <textarea id="about" data-findclick="activateInput" name="about" disabled class="materialize-textarea inpClick"></textarea>
+      <label for="about"></label>
+    </div>
+
+    <div class="input-field profile-input col s5 offset-s1">
+      <i class="material-icons prefix tiny">wc</i>
+      <select id="userProfileGenders" name="gender"></select>
+      <label>Gender</label>
+    </div>
+      
+  </div>
+</section>
+
+
