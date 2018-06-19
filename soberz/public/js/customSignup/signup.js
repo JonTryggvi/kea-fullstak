@@ -3,33 +3,22 @@ $(document).ready(function () {
 });
 $('.dropify').dropify();
 
-
 $('#btnSbmSignup').click(function () {
   // var imgFile = $('#imgFile')[0].files;
   // console.log(imgFile);
-  
   var form = $('#frmSignup').serializeArray()
-  
   var file_data = $("#imgFile").get(0).files[0];   // Getting the properties of file from file field
   // console.log(file_data);
   
   var formData = new FormData();
   formData.append('userImg', file_data);
-  var objArr = [];
   var obj = {};
   for (let i = 0; i < form.length; i++) {
-
     obj[form[i].name] = form[i].value; 
   }
-  objArr = [...objArr, obj];
-  console.log(objArr);
- 
 
-
-  //JSON obj
+  // JSON obj
   formData.append('formData', JSON.stringify(obj));
-
-
   $.ajax({
     url: '/api/save-user',
     type: "POST",
@@ -37,16 +26,10 @@ $('#btnSbmSignup').click(function () {
     contentType: false,
     data: formData,
     complete: function (data) {
-      console.log(data);
+      // console.log(data);
       if (data.status == 200) {
         location.replace('/');
       }
     }
   });
-  // $.post('/api/save-user', formData , function (jData) {
-  //     console.log(jData);
-
-  //   })
-  
-
 });
