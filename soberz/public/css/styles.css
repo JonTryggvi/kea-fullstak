@@ -1,3 +1,4 @@
+@import url(../css/dropify.min.css);
 .materialize-red {
   background-color: #e51c23 !important; }
 
@@ -6962,11 +6963,20 @@ body, html {
 .fixed-action-btn.direction-left ul li, .fixed-action-btn.direction-right ul li {
   overflow: visible; }
 
+.material-tooltip {
+  margin-bottom: 50px !important; }
+
 .login-container {
   min-height: 100vh;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center; }
+
+#btnLogin {
+  margin: 40px auto 0; }
+
+.login-container h2 {
+  text-align: center; }
 
 .userHeader {
   display: -webkit-box;
@@ -7007,5 +7017,139 @@ body, html {
   .profile-input .hidden {
     position: absolute;
     visibility: hidden; }
+
+.card {
+  margin-top: 40px; }
+  .card .messages {
+    min-height: 70vh; }
+
+.log {
+  color: gray;
+  font-size: 70%;
+  margin: 5px;
+  text-align: center; }
+
+/* Messages */
+.chatArea {
+  height: 100%;
+  padding-bottom: 60px; }
+
+.card .messages {
+  height: 100%;
+  margin: 0;
+  overflow-y: scroll;
+  padding: 30px 20px 10px 20px; }
+
+.message.typing .messageBody {
+  color: gray; }
+
+.username {
+  font-weight: 700;
+  overflow: hidden;
+  padding-right: 15px;
+  text-align: right; }
+
+.loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  background-color: antiquewhite;
+  z-index: 999;
+  height: 100vh;
+  width: 100vw;
+  visibility: visible;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease; }
+
+.hideLoader {
+  visibility: hidden;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease; }
+
+.frmSignup {
+  margin-top: 50px; }
+
+.setFlex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
+  .setFlex .dropify-wrapper {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    padding: 0px;
+    margin: 0 auto; }
+    .setFlex .dropify-wrapper .dropify-preview {
+      padding: 0; }
+    .setFlex .dropify-wrapper .dropify-clear {
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      top: 80%;
+      height: 25px; }
+    .setFlex .dropify-wrapper .dropify-message {
+      top: 25%; }
+    .setFlex .dropify-wrapper .dropify-preview {
+      width: 200px; }
+      .setFlex .dropify-wrapper .dropify-preview .dropify-infos {
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box; }
+      .setFlex .dropify-wrapper .dropify-preview .dropify-render {
+        width: 200px;
+        height: 100%;
+        border-radius: 50%;
+        margin: 0 auto; }
+        .setFlex .dropify-wrapper .dropify-preview .dropify-render img {
+          width: 100%;
+          padding: 0px;
+          margin: 0 auto; }
+
+.firstRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly; }
+  .firstRow .switch {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    height: 60px;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+
+.btnSbmSignup {
+  margin-top: 20px; }
 
 /*# sourceMappingURL=styles.css.map */

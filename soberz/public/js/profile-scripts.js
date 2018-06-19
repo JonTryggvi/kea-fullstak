@@ -2534,67 +2534,345 @@ function _possibleConstructorReturn(t, e) {
       } }]), s;
   }();M.Range = n, M.jQueryLoaded && M.initializeJqueryWrapper(n, "range", "M_Range"), n.init(t("input[type=range]"));
 }(cash, M.anime);
-;
+;/*!
+ * =============================================================
+ * dropify v0.2.1 - Override your input files with style.
+ * https://github.com/JeremyFagis/dropify
+ *
+ * (c) 2016 - Jeremy FAGIS <jeremy@fagis.fr> (http://fagis.fr)
+ * =============================================================
+ */
+
+!function (e, i) {
+  "function" == typeof define && define.amd ? define(["jquery"], i) : "object" == typeof exports ? module.exports = i(require("jquery")) : e.Dropify = i(e.jQuery);
+}(this, function (e) {
+  function i(i, t) {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      var s = { defaultFile: "", maxFileSize: 0, minWidth: 0, maxWidth: 0, minHeight: 0, maxHeight: 0, showRemove: !0, showLoader: !0, showErrors: !0, errorTimeout: 3e3, errorsPosition: "overlay", imgFileExtensions: ["png", "jpg", "jpeg", "gif", "bmp"], maxFileSizePreview: "5M", allowedFormats: ["portrait", "square", "landscape"], allowedFileExtensions: ["*"], messages: { "default": "Drag and drop a file here or click", replace: "Drag and drop or click to replace", remove: "Remove", error: "Ooops, something wrong appended." }, error: { fileSize: "The file size is too big ({{ value }} max).", minWidth: "The image width is too small ({{ value }}}px min).", maxWidth: "The image width is too big ({{ value }}}px max).", minHeight: "The image height is too small ({{ value }}}px min).", maxHeight: "The image height is too big ({{ value }}px max).", imageFormat: "The image format is not allowed ({{ value }} only).", fileExtension: "The file is not allowed ({{ value }} only)." }, tpl: { wrap: '<div class="dropify-wrapper"></div>', loader: '<div class="dropify-loader"></div>', message: '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>', preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>', filename: '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>', clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>', errorLine: '<p class="dropify-error">{{ error }}</p>', errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>' } };this.element = i, this.input = e(this.element), this.wrapper = null, this.preview = null, this.filenameWrapper = null, this.settings = e.extend(!0, s, t, this.input.data()), this.errorsEvent = e.Event("dropify.errors"), this.isDisabled = !1, this.isInit = !1, this.file = { object: null, name: null, size: null, width: null, height: null, type: null }, Array.isArray(this.settings.allowedFormats) || (this.settings.allowedFormats = this.settings.allowedFormats.split(" ")), Array.isArray(this.settings.allowedFileExtensions) || (this.settings.allowedFileExtensions = this.settings.allowedFileExtensions.split(" ")), this.onChange = this.onChange.bind(this), this.clearElement = this.clearElement.bind(this), this.onFileReady = this.onFileReady.bind(this), this.translateMessages(), this.createElements(), this.setContainerSize(), this.errorsEvent.errors = [], this.input.on("change", this.onChange);
+    }
+  }var t = "dropify";return i.prototype.onChange = function () {
+    this.resetPreview(), this.readFile(this.element);
+  }, i.prototype.createElements = function () {
+    this.isInit = !0, this.input.wrap(e(this.settings.tpl.wrap)), this.wrapper = this.input.parent();var i = e(this.settings.tpl.message).insertBefore(this.input);e(this.settings.tpl.errorLine).appendTo(i), this.isTouchDevice() === !0 && this.wrapper.addClass("touch-fallback"), this.input.attr("disabled") && (this.isDisabled = !0, this.wrapper.addClass("disabled")), this.settings.showLoader === !0 && (this.loader = e(this.settings.tpl.loader), this.loader.insertBefore(this.input)), this.preview = e(this.settings.tpl.preview), this.preview.insertAfter(this.input), this.isDisabled === !1 && this.settings.showRemove === !0 && (this.clearButton = e(this.settings.tpl.clearButton), this.clearButton.insertAfter(this.input), this.clearButton.on("click", this.clearElement)), this.filenameWrapper = e(this.settings.tpl.filename), this.filenameWrapper.prependTo(this.preview.find(".dropify-infos-inner")), this.settings.showErrors === !0 && (this.errorsContainer = e(this.settings.tpl.errorsContainer), "outside" === this.settings.errorsPosition ? this.errorsContainer.insertAfter(this.wrapper) : this.errorsContainer.insertBefore(this.input));var t = this.settings.defaultFile || "";"" !== t.trim() && (this.file.name = this.cleanFilename(t), this.setPreview(this.isImage(), t));
+  }, i.prototype.readFile = function (i) {
+    if (i.files && i.files[0]) {
+      var t = new FileReader(),
+          s = new Image(),
+          r = i.files[0],
+          n = null,
+          o = this,
+          h = e.Event("dropify.fileReady");this.clearErrors(), this.showLoader(), this.setFileInformations(r), this.errorsEvent.errors = [], this.checkFileSize(), this.isFileExtensionAllowed(), this.isImage() && this.file.size < this.sizeToByte(this.settings.maxFileSizePreview) ? (this.input.on("dropify.fileReady", this.onFileReady), t.readAsDataURL(r), t.onload = function (e) {
+        n = e.target.result, s.src = e.target.result, s.onload = function () {
+          o.setFileDimensions(this.width, this.height), o.validateImage(), o.input.trigger(h, [!0, n]);
+        };
+      }.bind(this)) : this.onFileReady(!1);
+    }
+  }, i.prototype.onFileReady = function (e, i, t) {
+    if (this.input.off("dropify.fileReady", this.onFileReady), 0 === this.errorsEvent.errors.length) this.setPreview(i, t);else {
+      this.input.trigger(this.errorsEvent, [this]);for (var s = this.errorsEvent.errors.length - 1; s >= 0; s--) {
+        var r = this.errorsEvent.errors[s].namespace,
+            n = r.split(".").pop();this.showError(n);
+      }if ("undefined" != typeof this.errorsContainer) {
+        this.errorsContainer.addClass("visible");var o = this.errorsContainer;setTimeout(function () {
+          o.removeClass("visible");
+        }, this.settings.errorTimeout);
+      }this.wrapper.addClass("has-error"), this.resetPreview(), this.clearElement();
+    }
+  }, i.prototype.setFileInformations = function (e) {
+    this.file.object = e, this.file.name = e.name, this.file.size = e.size, this.file.type = e.type, this.file.width = null, this.file.height = null;
+  }, i.prototype.setFileDimensions = function (e, i) {
+    this.file.width = e, this.file.height = i;
+  }, i.prototype.setPreview = function (i, t) {
+    this.wrapper.removeClass("has-error").addClass("has-preview"), this.filenameWrapper.children(".dropify-filename-inner").html(this.file.name);var s = this.preview.children(".dropify-render");if (this.hideLoader(), i === !0) {
+      var r = e("<img />").attr("src", t);this.settings.height && r.css("max-height", this.settings.height), r.appendTo(s);
+    } else e("<i />").attr("class", "dropify-font-file").appendTo(s), e('<span class="dropify-extension" />').html(this.getFileType()).appendTo(s);this.preview.fadeIn();
+  }, i.prototype.resetPreview = function () {
+    this.wrapper.removeClass("has-preview");var e = this.preview.children(".dropify-render");e.find(".dropify-extension").remove(), e.find("i").remove(), e.find("img").remove(), this.preview.hide(), this.hideLoader();
+  }, i.prototype.cleanFilename = function (e) {
+    var i = e.split("\\").pop();return i == e && (i = e.split("/").pop()), "" !== e ? i : "";
+  }, i.prototype.clearElement = function () {
+    if (0 === this.errorsEvent.errors.length) {
+      var i = e.Event("dropify.beforeClear");this.input.trigger(i, [this]), i.result !== !1 && (this.resetFile(), this.input.val(""), this.resetPreview(), this.input.trigger(e.Event("dropify.afterClear"), [this]));
+    } else this.resetFile(), this.input.val(""), this.resetPreview();
+  }, i.prototype.resetFile = function () {
+    this.file.object = null, this.file.name = null, this.file.size = null, this.file.type = null, this.file.width = null, this.file.height = null;
+  }, i.prototype.setContainerSize = function () {
+    this.settings.height && this.wrapper.height(this.settings.height);
+  }, i.prototype.isTouchDevice = function () {
+    return "ontouchstart" in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+  }, i.prototype.getFileType = function () {
+    return this.file.name.split(".").pop().toLowerCase();
+  }, i.prototype.isImage = function () {
+    return "-1" != this.settings.imgFileExtensions.indexOf(this.getFileType()) ? !0 : !1;
+  }, i.prototype.isFileExtensionAllowed = function () {
+    return "-1" != this.settings.allowedFileExtensions.indexOf("*") || "-1" != this.settings.allowedFileExtensions.indexOf(this.getFileType()) ? !0 : (this.pushError("fileExtension"), !1);
+  }, i.prototype.translateMessages = function () {
+    for (var e in this.settings.tpl) for (var i in this.settings.messages) this.settings.tpl[e] = this.settings.tpl[e].replace("{{ " + i + " }}", this.settings.messages[i]);
+  }, i.prototype.checkFileSize = function () {
+    0 !== this.sizeToByte(this.settings.maxFileSize) && this.file.size > this.sizeToByte(this.settings.maxFileSize) && this.pushError("fileSize");
+  }, i.prototype.sizeToByte = function (e) {
+    var i = 0;if (0 !== e) {
+      var t = e.slice(-1).toUpperCase(),
+          s = 1024,
+          r = 1024 * s,
+          n = 1024 * r;"K" === t ? i = parseFloat(e) * s : "M" === t ? i = parseFloat(e) * r : "G" === t && (i = parseFloat(e) * n);
+    }return i;
+  }, i.prototype.validateImage = function () {
+    0 !== this.settings.minWidth && this.settings.minWidth >= this.file.width && this.pushError("minWidth"), 0 !== this.settings.maxWidth && this.settings.maxWidth <= this.file.width && this.pushError("maxWidth"), 0 !== this.settings.minHeight && this.settings.minHeight >= this.file.height && this.pushError("minHeight"), 0 !== this.settings.maxHeight && this.settings.maxHeight <= this.file.height && this.pushError("maxHeight"), "-1" == this.settings.allowedFormats.indexOf(this.getImageFormat()) && this.pushError("imageFormat");
+  }, i.prototype.getImageFormat = function () {
+    return this.file.width == this.file.height ? "square" : this.file.width < this.file.height ? "portrait" : this.file.width > this.file.height ? "landscape" : void 0;
+  }, i.prototype.pushError = function (i) {
+    var t = e.Event("dropify.error." + i);this.errorsEvent.errors.push(t), this.input.trigger(t, [this]);
+  }, i.prototype.clearErrors = function () {
+    "undefined" != typeof this.errorsContainer && this.errorsContainer.children("ul").html("");
+  }, i.prototype.showError = function (e) {
+    "undefined" != typeof this.errorsContainer && this.errorsContainer.children("ul").append("<li>" + this.getError(e) + "</li>");
+  }, i.prototype.getError = function (e) {
+    var i = this.settings.error[e],
+        t = "";return "fileSize" === e ? t = this.settings.maxFileSize : "minWidth" === e ? t = this.settings.minWidth : "maxWidth" === e ? t = this.settings.maxWidth : "minHeight" === e ? t = this.settings.minHeight : "maxHeight" === e ? t = this.settings.maxHeight : "imageFormat" === e ? t = this.settings.allowedFormats.join(", ") : "fileExtension" === e && (t = this.settings.allowedFileExtensions.join(", ")), "" !== t ? i.replace("{{ value }}", t) : i;
+  }, i.prototype.showLoader = function () {
+    "undefined" != typeof this.loader && this.loader.show();
+  }, i.prototype.hideLoader = function () {
+    "undefined" != typeof this.loader && this.loader.hide();
+  }, i.prototype.destroy = function () {
+    this.input.siblings().remove(), this.input.unwrap(), this.isInit = !1;
+  }, i.prototype.init = function () {
+    this.createElements();
+  }, i.prototype.isDropified = function () {
+    return this.isInit;
+  }, e.fn[t] = function (s) {
+    return this.each(function () {
+      e.data(this, t) || e.data(this, t, new i(this, s));
+    }), this;
+  }, i;
+});
+;$(document).ready(function () {
+  $('.sidenav').sidenav();
+  $('.tooltipped').tooltip();
+  $('.backdrop').css('margin-bottom', '100px');
+  $('.tooltipped').on('hover', function () {
+    console.log('s');
+
+    $('.material-tooltip').css('translateY', '-200px');
+  });
+});
+window.onload = function () {
+  $('.loader').addClass('hideLoader');
+};
+
+var ioLocation = location.hostname + ':3000';
+// console.log(location.protocol + '//' + location.hostname +':3000');
+
+var socket = io(location.hostname + ':3000');
+var userId = localStorage.userId;
+// var navChat = $('.ancId').attr('href');
+// let navAddId = navChat + '/' + userId;
+// var navUsers = $('.ancId').attr('href');
+// $('.ancId').attr('href', navAddId);
+// let navAddUsersId = navUsers + '/' + userId;
+// $('#ancUsers').attr('href', navAddUsersId);
+
+$('form').on('keyup', function (e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) {
+
+    e.preventDefault();
+    $('form button').click();
+    return false;
+  }
+});
+// just to be sure that forms wont do anything unwanted I added the keaypress listener
+$('form').on('keypress', function (e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) {
+    e.preventDefault();
+    // $('form button').click();
+    return false;
+  }
+});
+
+$.get('/api/get-genders', function (jData) {
+  var jGenders = jData.response;
+  var sOptions = `<option value="3" disabled selected>Choose gender</option>`;
+  var genderId;
+  var genderName;
+  var selected;
+  for (let i = 0; i < jGenders.length; i++) {
+    genderId = jGenders[i].id;
+    genderName = jGenders[i].gender_name;
+
+    sOptions += `<option value="${genderId}" >${genderName}</option>`;
+  }
+  // console.log(sOptions);
+
+  $('#userProfileGenders').append(sOptions);
+  $('select').formSelect();
+  // $('.loader').addClass('hideLoader');
+});
+
+$('.btnLogout').click(function () {
+  console.log('x');
+
+  $.post('/api/logout', { id: userId }, function (jData) {
+    console.log(jData);
+    var status = jData.status;
+    if (status == 'ok') {
+      localStorage.clear();
+      location.replace('/');
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var elems = document.querySelectorAll('.fixed-action-btn');
+  var instances = M.FloatingActionButton.init(elems, {
+    direction: 'left',
+    hoverEnabled: false
+  });
+});
 ;$(document).ready(function () {
 
   var userId = window.localStorage.userId;
-  $.post('/api/get-loggedin-user', { userId }, function (jData) {
-    var jUser = jData.response;
-    var sFirstname = jUser.firstname;
-    var sLastname = jUser.lastname;
-    var sFullName = `${sFirstname} ${sLastname}`;
-    var sImgData = jUser.userImg;
-    var jImgData = JSON.parse(sImgData);
-    console.log(jImgData);
-    var sImg = `<img class="circle responsive-img" src="${jImgData.imgPath}"  alt="${sFirstname}" />`;
+  if (userId) {
+    $.post('/api/get-loggedin-user', { userId }, function (jData) {
 
-    $('#userName').val(sFirstname);
-    $('#userImg').html(sImg);
+      var jUser = jData.response;
+      var sFirstname = jUser.firstname;
+      var sLastname = jUser.lastname;
+      var sFullName = `${sFirstname} ${sLastname}`;
+      var sImgData = jUser.userImg;
+      var jImgData = JSON.parse(sImgData);
+      var sEmail = jUser.email;
+      var sMobile = jUser.mobile;
+      var sMobileModified = sMobile.replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, "$1 $2 $3 $4 $5");
+      var sAbout = jUser.about;
+      var sGender = jUser.gender;
+      // console.log(jImgData);
+      var sImg = $('#imgFile').attr('data-default-file', jImgData.imgPath);
+      //  <input type="file" class="dropify" data-default-file="url_of_your_file" />
+      // <input id="imgFile" type="file" class="dropify" name="imgFile" data-height="200" data-default-file="${jImgData.imgPath}"/>
+      $('#userName').text(sFullName);
+      $('#userImg').html(sImg);
+      $('#firstname').val(sFirstname);
+      $('#lastname').val(sLastname);
+      $('#email').val(sEmail);
+      $('#mobile').val(sMobileModified);
+      $('#about').val(sAbout);
+      console.log(jUser);
+      var selectedVal = $('#userProfileGenders option').filter(function () {
+        return $(this).html() == sGender;
+      }).val();
+      $('#userProfileGenders').val(selectedVal[0]);
+      $('select').formSelect(); // reset the the pretty select
+      $('.dropify').dropify();
 
-    console.log(jData);
-  });
+      // chang user img
+      $('#userImg').on('change', '#imgFile', function () {
+        console.log('x');
+        var file_data = $("#imgFile").get(0).files[0]; // Getting the properties of file from file field
+        // console.log(file_data);
 
-  var navId = $('#headerNav');
-  var userId = window.localStorage.userId;
-  if (navId) {
-    var sNavHtml = ` 
-      <div class="nav-wrapper container">
-        <a href="#!" class="brand-logo">Soberz</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="#">Chat</a></li>
-          <li><a href="#">Users</a></li>
-          <li><a href="/sober/${userId}">Profile</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
-      </div>`;
+        var formData = new FormData();
+        formData.append('userImg', file_data);
 
-    navId.html(sNavHtml);
+        var obj = { id: userId, fileToDelete: jImgData.imgPath, userName: sFirstname };
+
+        // console.log(objArr);
+
+        //JSON obj
+        formData.append('formData', JSON.stringify(obj));
+        $.ajax({
+          url: '/api/update-user-img',
+          type: "POST",
+          processData: false,
+          contentType: false,
+          data: formData,
+          complete: function (jResData) {
+            // console.log(data);
+            if (jResData.status == 200) {
+              // location.replace('/');
+              M.toast({ html: jResData.responseJSON.message, classes: 'rounded' });
+            }
+          }
+        });
+      });
+    });
   }
-
-  $('.sidenav').sidenav();
 
   $(document).click(function (e) {
     var dataActivateInput = $(e.target).attr("data-findclick");
-    if (dataActivateInput && dataActivateInput === 'activateInputfirstname') {
+    if (dataActivateInput && dataActivateInput === 'activateInput') {
       // console.log('x');
       var thisInput = e.target;
+
       $(thisInput).removeAttr('disabled').focus().next().text(`Edit ${$(thisInput).attr('name')}`).addClass('active');
-      $('.btnEdit').removeClass('red').addClass('green').addClass('btnSave').css('visibility', 'visible').css('transform', 'scale(1)').css('right', '3em').children().text('check');
-      $('.hidden').removeClass('hidden');
+      $(thisInput).siblings('.btnEdit').removeClass('red').addClass('green').addClass('btnSave').css('visibility', 'visible').css('transform', 'scale(1)').css('right', '3em').children().text('check');
+      $(thisInput).siblings('.hidden').removeClass('hidden');
     }
+
     // get the cancel button going 
     var cancelInput = $(e.target).attr('data-btninput');
     if (cancelInput && cancelInput === 'cancelinput') {
+      // cancelInput(e.target);
       var inputReset = e.target.parentElement.nextElementSibling;
       var parentElement = e.target.parentElement;
       $(inputReset).attr('disabled', true);
       $(inputReset).blur().removeClass('valid');
       $(parentElement).siblings('label').text('').removeClass('active');
-      console.dir($(parentElement).siblings('label'));
-      $('.btnEdit').addClass('red').removeClass('green').removeClass('btnSave').css('visibility', 'hidden').css('transform', 'scale(0.8)').css('right', '0em').children().text('mode_edit').next().addClass('hidden');
+      // console.dir($(parentElement).siblings('label'));
+      $(inputReset).siblings('.btnEdit').addClass('red').removeClass('green').removeClass('btnSave').css('visibility', 'hidden').css('transform', 'scale(0.8)').css('right', '0em').children().text('mode_edit');
+      $(inputReset).siblings('.btnCancel').addClass('hidden');
     }
     // and then send the new edit data to server todo
+  });
+
+  $('.btnEdit').click(function () {
+    var inputValue = $(this).siblings('.inpClick').val();
+
+    var inputName = $(this).siblings('.inpClick').attr('name');
+    if (inputName == 'mobile' && inputValue.length > 8) {
+      inputValue = inputValue.replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, "$1$2$3$4$5").substring(3);
+    }
+    // console.log(inputName);
+    var jData = { value: inputValue, name: inputName, userId: userId };
+    $.post('/api/update-user', jData, function (jResData) {
+      var resColName = jResData.updatedData.name;
+      var resColValue = jResData.updatedData.value;
+      switch (resColName) {
+        case 'firstname':
+          $('#firstname').val(resColValue);
+          break;
+        case 'lastname':
+          $('#lastname').val(resColValue);
+          break;
+        default:
+          break;
+      }
+      sFullName = $('#firstname').val() + ' ' + $('#lastname').val();
+      $('#userName').text(sFullName);
+
+      $('.inpClick').attr('disabled', true);
+      $('.inpClick').blur().removeClass('valid');
+      $('.inpClick').siblings('label').text('').removeClass('active');
+      // console.dir($(parentElement).siblings('label'));
+      $('.inpClick').siblings('.btnEdit').addClass('red').removeClass('green').removeClass('btnSave').css('visibility', 'hidden').css('transform', 'scale(0.8)').css('right', '0em').children().text('mode_edit');
+      $('.inpClick').siblings('.btnCancel').addClass('hidden');
+      M.toast({ html: jResData.message, classes: 'rounded' });
+      // console.log(jResData);
+    });
+  });
+
+  $('select').on('change', function () {
+    console.log('x');
+
+    var selectValue = $(this).val();
+    var selectName = $(this).attr('name');
+    var jData = { value: selectValue, name: selectName, userId: userId };
+    $.post('/api/update-user', jData, function (jResData) {
+      // 
+
+      M.toast({ html: jResData.message, classes: 'rounded' });
+    });
   });
 });
 //# sourceMappingURL=profile-scripts.js.map

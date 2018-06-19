@@ -1,0 +1,71 @@
+<section class="container">
+  <h3>Signup</h3> 
+  <div class="card row">
+    <form id="frmSignup" class="frmSignup col s10 offset-s1">
+      <div class="row firstRow">
+        <div class="input-field setFlex">
+          <input id="imgFile" type="file" class="dropify" name="imgFile" data-height="200" data-max-file-size="1M"/>
+        </div>
+        <div class="switch">
+          <span>Ready to sponsor?</span> 
+          <label>
+            no
+            <input type="checkbox" name="isSponsor">
+            <span class="lever"></span>
+            Yes!!!
+          </label>
+        </div>
+      </div>
+     
+      <div class="row">
+        <div class="input-field  col s6">
+          <i class="material-icons prefix tiny">person</i>
+          <input name="firstname" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix tiny">person_outline</i>
+          <input id="last_name" name="lastname" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix tiny">lock_open</i>
+          <input id="password" name="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+ 
+      <div class="input-field col s6">
+        <i class="material-icons prefix tiny">lock_outline</i>
+        <input id="password2" name="password2" type="password" class="validate">
+        <label for="password2">Password again</label>
+      </div>
+      </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <i class="material-icons prefix tiny">email</i>
+            <input id="email" name="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix tiny">call</i>
+            <input id="mobile" name="mobile" type="text" class="validate">
+            <label for="mobile">mobile #</label>
+          </div>
+        
+        </div>
+        <div class="row">
+          <div class="input-field profile-input col s6">
+            <i class="material-icons prefix tiny">wc</i>
+            <select id="userProfileGenders" name="gender"></select>
+            <label>Gender</label>
+          </div>
+          <button id="btnSbmSignup" class="btn btnSbmSignup waves-effect waves-light col s2 offset-s1" type="button">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+   
+    </form>
+  </div>
+</section>

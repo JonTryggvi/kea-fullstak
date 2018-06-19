@@ -7,10 +7,10 @@
   display: flex;
   align-items: center;
   margin: 15px;
-  img {
-    // width: 50%;
-    // border-radius: 50%;
-  } 
+  // img {
+  //   // width: 50%;
+  //   // border-radius: 50%;
+  // } 
 }
 
 .profile-input {
@@ -37,3 +37,48 @@
     visibility: hidden;
   }
 }
+
+// .setFlex {
+//   display: flex;
+//   justify-content: center;
+//   .dropify-wrapper  {
+//     display: inline-flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 200px;
+//     height: 200px;
+//     border-radius: 50%;
+//     padding: 0px;
+//     margin: 0 auto;
+//     .dropify-preview {
+//       padding: 0;
+//     }
+//     .dropify-clear {
+//       left: 50%;
+//       transform: translateX(-50%);
+//       top: 80%;
+//       height: 25px; 
+//     }
+//     .dropify-message {
+//       top: 25%;
+//     }
+//     .dropify-preview {
+//       width: 200px;
+//       .dropify-infos {
+      
+//         box-sizing: border-box;
+//       }
+//       .dropify-render {
+//         width: 200px;
+//         height: 100%;
+//         margin: 0 auto;
+//         img {
+//           width: 100%;
+//           border-radius: 50%;
+//           padding: 0px;
+//           margin: 0 auto;
+//         }
+//       }
+//     }
+//   }
+// }

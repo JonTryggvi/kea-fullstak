@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var toolTipInstace = M.Tooltip.init(tooltipElement, {
     position: 'top'
   });
-
 });
 
 $(document).ready(function () {
@@ -24,13 +23,20 @@ $(document).ready(function () {
     }
   }
   $('#btnLogin').click(function () {
+    console.log('x');
+    
     var formData = $('#frmLogin').serialize();
     $.post('/api/login', formData, function (jData) {
-      if (jData.message == 'ok') {
+      if (jData.status == 'ok') {
         console.log(jData);
-        isLocalStorageNameSupported('loggedIn', 'yes')
-        isLocalStorageNameSupported('userId', jData.response.id)
+        isLocalStorageNameSupported('loggedIn', 'yes');
+        isLocalStorageNameSupported('userId', jData.response.id);
+        isLocalStorageNameSupported('userFirstname', jData.response.firstname);
+        isLocalStorageNameSupported('userLastname', jData.response.lastname);
         location.replace('/sober/'+ jData.response.id)
+      } else if (jData.status == 'failed') {
+        console.log(jData.message);
+        M.toast({ html: jData.message, classes: 'rounded' });
       } else {
         location.replace('/')
       }
@@ -38,25 +44,6 @@ $(document).ready(function () {
       // location.replace('/sober')
     });
   });
-
-  var navId = $('#headerNav');
-  var userId = window.localStorage.userId
-  if (navId) {
-    var sNavHtml = ` 
-      <div class="nav-wrapper container">
-        <a href="#!" class="brand-logo">Soberz</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="#">Sign up</a></li>
-         
-          <li><a href="#">About</a></li>
-        </ul>
-      </div>`;
-
-    navId.html(sNavHtml);
-  }
-
-
   $('.sidenav').sidenav();
- 
 });
+

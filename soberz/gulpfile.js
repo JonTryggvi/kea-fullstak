@@ -15,6 +15,9 @@ var imagemin = require('gulp-imagemin')
 var spawn = require('child_process').spawn
 var node;
 var promisify = require( 'gulp-promisify' );
+
+
+
 promisify(gulp);
 
 async function startServer() {
@@ -44,6 +47,7 @@ var COMPATIBILITY = [
 var PATHS = {
   server: ['./routes.js','./controllers/*.js','./html/*.html', './components/*.html', './server.js'],
   sass: [
+
     "./node_modules/@material/floating-label/mdc-floating-label.scss",
     'scss',
   ],
@@ -52,6 +56,7 @@ var PATHS = {
     // MDCPersistentDrawerFoundation,
     // util,
     'public/materialize-src/js/bin/materialize.min.js',
+    './node_modules/dropify/dist/js/dropify.min.js',
     'public/js/global.js',
     'public/js/custom/*.js',
   ],
@@ -60,7 +65,28 @@ var PATHS = {
     'public/js/global.js',
     'public/js/customLogin/*.js',
   ],
-
+  javascriptChat: [
+    'public/materialize-src/js/bin/materialize.min.js',
+    'public/js/global.js',
+    'public/js/customChat/*.js',
+  ],
+  javascriptUsers: [
+    'public/materialize-src/js/bin/materialize.min.js',
+    'public/js/global.js',
+    'public/js/customUsers/*.js',
+  ],
+  javascriptSignup: [
+    'public/materialize-src/js/bin/materialize.min.js',
+    './node_modules/dropify/dist/js/dropify.min.js',
+    'public/js/global.js',
+    'public/js/customSignup/*.js',
+  ],
+  javascriptAbout: [
+    'public/materialize-src/js/bin/materialize.min.js',
+    './node_modules/dropify/dist/js/dropify.min.js',
+    'public/js/global.js',
+    'public/js/customAbout/*.js',
+  ],
   pkg: [
  
     '**/*',
@@ -68,11 +94,15 @@ var PATHS = {
     '!**/live',
     '!**/public/js/custom/**/*.{js,map}',
     '!public/js/customLogin/**/*.{js,map}',
+    '!public/js/customUsers/**/*.{js,map}',
+    '!public/js/customChat/**/*.{js,map}',
+    '!public/js/customSignup/**/*.{js,map}',
+    '!public/materialize-src/**',
     // '!**/components/**',
-    '!**/scss',
+    '!**/scss/**',
     // '!**/bower.json',
     '!**/gulpfile.js',
-    '!**/package.json',
+    '!**/package-lock.json',
     '!**/composer.json',
     '!**/composer.lock',
     '!**/codesniffer.ruleset.xml',
@@ -92,7 +122,7 @@ gulp.task('browser-sync', ['build'], function () {
     // Proxy address
     proxy: URL,
     // Port #
-    port: 13133
+    port: 4545
   });
 });
 
@@ -118,9 +148,9 @@ gulp.task('sass', function () {
     .pipe(browserSync.stream({ match: '**/*.css' }));
 });
 
-// Lint all JS files in custom directory
+// Lint all JS files in custom directory 
 gulp.task('lint', function () {
-  return gulp.src([, 'public/js/custom/*.js', 'public/js/customLogin/*.js'])
+  return gulp.src(['public/js/custom/**/*.js', 'public/js/customLogin/**/*.js', 'public/js/customSignup/**/*.js', 'public/js/customChat/**/*.js', 'public/js/customUsers/**/*.js', 'public/js/global.js'])
     .pipe(esHint())
     .pipe($.notify(function (file) {
       console.log(file);
@@ -140,54 +170,33 @@ gulp.task('lint', function () {
 
 // Combine JavaScript into one file
 // In production, the file is minified
-gulp.task('javascript', function () {
-  var uglify = $.uglify()
-    .on('error', $.notify.onError({
-      message: "<%= error.message %>",
-      title: "Uglify JS Error"
-    }));
+function jsFun(task, scriptname) {
+  gulp.task(task, function () {
+    var uglify = $.uglify()
+      .on('error', $.notify.onError({
+        message: "<%= error.message %>",
+        title: "Uglify JS Error"
+      }));
 
-  return gulp.src(PATHS.javascript)
-    .pipe($.sourcemaps.init())
-    .pipe($.babel())
-    .pipe($.concat('profile-scripts.js', {
-      newLine: '\n;'
-    }))
-    .pipe($.if(isProduction, uglify))
-    .pipe($.if(!isProduction, $.sourcemaps.write('.')))
-    .pipe(gulp.dest('public/js'))
-    .pipe(browserSync.stream());
-});
+    return gulp.src(PATHS[task])
+      .pipe($.sourcemaps.init())
+      .pipe($.babel())
+      .pipe($.concat(scriptname, {
+        newLine: '\n;'
+      }))
+      .pipe($.if(isProduction, uglify))
+      .pipe($.if(!isProduction, $.sourcemaps.write('.')))
+      .pipe(gulp.dest('public/js'))
+      .pipe(browserSync.stream());
+  });
+}
+jsFun('javascript', 'profile-scripts.js');
+jsFun('javascriptLogin', 'login-scripts.js');
+jsFun('javascriptChat', 'chat-scripts.js');
+jsFun('javascriptUsers', 'users-scripts.js');
+jsFun('javascriptSignup', 'signup-scripts.js');
+jsFun('javascriptAbout', 'about-scripts.js');
 
-gulp.task('javascriptLogin', function () {
-  var uglify = $.uglify()
-    .on('error', $.notify.onError({
-      message: "<%= error.message %>",
-      title: "Uglify JS Error"
-    }));
-
-  return gulp.src(PATHS.javascriptLogin)
-    .pipe($.sourcemaps.init())
-    .pipe($.babel())
-    .pipe($.concat('login-scripts.js', {
-      newLine: '\n;'
-    }))
-    .pipe($.if(isProduction, uglify))
-    .pipe($.if(!isProduction, $.sourcemaps.write('.')))
-    .pipe(gulp.dest('public/js'))
-    .pipe(browserSync.stream());
-});
-
-// Copy task
-// gulp.task('copy', function() {
-//   // Font Awesome
-//   var fontAwesome = gulp.src('assets/components/fontawesome/fonts/**/*.*')
-//       .pipe(gulp.dest('assets/fonts'));
-
-//   return merge(fontAwesome);
-// });
-
-// Package task
 gulp.task('package', ['build'], function () {
   var fs = require('fs');
   var time = dateFormat(new Date(), "yyyy-mm-dd_HH-MM");
@@ -203,7 +212,7 @@ gulp.task('package', ['build'], function () {
 // Runs copy then runs sass & javascript in parallel
 gulp.task('build', ['clean'], function (done) {
   sequence(
-    ['sass', 'javascript', 'javascriptLogin'],
+    ['sass', 'javascript', 'javascriptLogin', 'javascriptChat', 'javascriptUsers', 'javascriptSignup', 'javascriptAbout'],
     done);
 });
 
@@ -211,23 +220,26 @@ gulp.task('build', ['clean'], function (done) {
 
 // Clean task
 gulp.task('clean', function (done) {
-  sequence(['clean:javascript', 'clean:javascriptLogin', 'clean:css'], done);
+  sequence(['clean:javascript', 'clean:javascriptLogin', 'clean:javascriptChat', 'clean:javascriptUsers', 'clean:javascriptSignup', 'clean:javascriptAbout', 'clean:css'], done);
 });
 
 // Clean JS
-gulp.task('clean:javascript', function () {
-  return del([
-    'js/profile-scripts.js',
-    'js/profile-scripts.js.map'
-  ]);
-});
+function cleanfun(task) {
+  gulp.task(`clean:${task}`, function () {
+    return del([
+      `js/${task}-scripts.js`,
+      `js/${task}-scripts.js.map`
+    ]);
+  });
+}
 
-gulp.task('clean:javascriptLogin', function () {
-  return del([
-    'js/login-scripts.js',
-    'js/login-scripts.js.map'
-  ]);
-});
+cleanfun('javascript')
+cleanfun('javascriptLogin')
+cleanfun('javascriptChat')
+cleanfun('javascriptUsers')
+cleanfun('javascriptSignup')
+cleanfun('javascriptAbout')
+
 
 // Clean CSS
 gulp.task('clean:css', function () {
@@ -260,9 +272,24 @@ gulp.task('default', ['build', 'browser-sync'], function () {
     });
 
   // JS Watch
-  gulp.watch(['public/js/custom/**/*.js', 'public/js/customLogin/**/*.js', 'public/js/global.js'], ['clean:javascript', 'javascript', 'clean:javascriptLogin', 'javascriptLogin'])
-    .on('change', function (event) {
-      
+  gulp.watch([
+    'public/js/custom/**/*.js',
+    'public/js/customLogin/**/*.js',
+    'public/js/customChat/**/*.js',
+    'public/js/customSignup/**/*.js',
+    'public/js/customUsers/**/*.js',
+    'public/js/customAbout/**/*.js',
+    'public/js/global.js'
+  ],
+  [
+    'clean:javascript', 'javascript',
+    'clean:javascriptLogin','javascriptLogin',
+    'clean:javascriptChat', 'javascriptChat',
+    'clean:javascriptSignup', 'javascriptSignup',
+    'clean:javascriptUsers', 'javascriptUsers',
+    'clean:javascriptAbout', 'javascriptAbout'
+  ]
+  ).on('change', function (event) {
       logFileChange(event);
     });
  
